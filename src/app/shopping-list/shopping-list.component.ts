@@ -8,7 +8,7 @@ import { ShoppingListService } from './shopping-list.service';
   templateUrl: './shopping-list.component.html'
 })
 export class ShoppingListComponent implements OnInit {
-  
+
   items: Ingredient[] = [];
 
   constructor(private sls: ShoppingListService) { }
