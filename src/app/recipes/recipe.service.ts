@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Headers, Http } from '@angular/http';
 
 import { Recipe } from "./recipe";
 import { Ingredient } from "../shared/ingredient";
@@ -12,7 +13,7 @@ export class RecipeService {
       ]),
       new Recipe('Summer Salad', 'Okayish', 'http://cdn.iowagirleats.com/wp-content/uploads/2013/05/Triple-Berry-Summer-Salad-03_mini.jpg', [])
     ];
-  constructor() { }
+  constructor(private http: Http) { }
 
   getRecipes() {
     return this.recipes;
@@ -32,6 +33,18 @@ export class RecipeService {
 
   editRecipe(oldRecipe, newRecipe) {
     this.recipes[this.recipes.indexOf(oldRecipe)] = newRecipe;
+  }
+
+  storeData() {
+    const body = JSON.stringify(this.recipes);
+    const headers = new Headers({
+      'Content-Type': 'application/json'
+    });
+    return this.http.post('https://recipebook-7dee3.firebaseio.com/recipes.json', body, {headers: headers});
+  }
+
+  fetchData() {
+
   }
 
 }
